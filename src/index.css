@@ -16,3 +16,30 @@ img {
   width: 100%;
   height: auto;
 }
+.flex {
+  margin-bottom: 28px;
+}
+.border {
+  cursor: pointer;
+  padding: 12px;
+  border: 2px solid black;
+  box-shadow: 0 0 6px 6px lightcoral;
+  border-radius: 12px;
+}
+.todo-list {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+.todo-item {
+  padding: 12px;
+  border: 2px solid black;
+  box-shadow: 0 0 6px 6px lightcoral;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.checkbox {
+  margin-right: 8px;
+}
