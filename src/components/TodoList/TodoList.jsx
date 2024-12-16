@@ -1,26 +1,44 @@
-import { useState } from "react";
-import todosData from "./../../assets/todos.json";
-import { TodoItem } from "./TodoItem.jsx";
+import { useEffect, useState } from "react";
+//import todosData from "./../../assets/todos.json";
+import { TodoItem } from "./ToDoItem.jsx";
 import s from "./TodoList.module.css";
 
 export const TodoList = () => {
-  const [todos, setTodos] = useState(todosData);
+  const [todos, setTodos] = useState(() => {
+    const savedData = JSON.parse(localStorage.getItem("todos"));
+    if (savedData?.length) {
+      return savedData;
+    }
+    return [];
+  });
+  const [newValue, setnewValue] = useState("");
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
   const deleteTodo = (id) => {
-    console.log(id);
-    const newArr = todos.filter((item) => item.id !== id);
     setTodos((prev) => prev.filter((item) => item.id !== id));
-    console.log(newArr);
+  };
+  const addNewTodo = () => {
+    const newTodo = {
+      id: crypto.randomUUID,
+      todo: newValue,
+      completed: false,
+    };
+    setTodos((prev) => [...prev, newTodo]);
   };
   return (
     <div className={s.box}>
       <div className="flex">
         <input
+          value={newValue}
+          onChange={(e) => setnewValue(e.target.value)}
           placeholder="What do you need to do?"
-          name="todo"
           className={s.input}
           type="text"
         />
-        <button className="btn border">Add</button>
+        <button className="btn border" onClick={addNewTodo}>
+          Add
+        </button>
       </div>
       <ul className="todo-list">
         {todos.map((item) => (

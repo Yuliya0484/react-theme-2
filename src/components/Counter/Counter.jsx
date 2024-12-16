@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./Counter.module.css";
 
 export const Counter = () => {
   const [counter, setCounter] = useState(0);
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    console.log("change counter", counter);
+  }, [counter]);
 
   const hanleClickMinus = () => {
     setCounter((prev) => prev - step);
